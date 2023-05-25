@@ -56,7 +56,7 @@ public String displayContact(@Valid Contact filledContact, BindingResult result,
 }
 
 @GetMapping("/list")
-public String displayContactId(Model model) {
+public String getAllContactsId(Model model) {
     service.displayContactId(model, dataDir);
     return "contacts";
 

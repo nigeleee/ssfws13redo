@@ -33,5 +33,27 @@ public class Ssfws13redoApplication {
 		// SpringApplication.run(Ssfworkshop13redoApplication.class, args);
 
 	}
+	// public static void main(String[] args) {
+
+	// 	SpringApplication app = new SpringApplication(Ssfws13redoApplication.class);
+
+	// 	DefaultApplicationArguments appArgs = new DefaultApplicationArguments(args);
+
+	// 	List<String> opsVal = appArgs.getOptionValues("dataDir");
+
+	// 	System.out.println(opsVal);
+
+
+	// 	if(opsVal != null){
+	// 		//create dir
+	// 		Utility.createDir(opsVal.get(0));
+	// 	}else{
+	// 		//terminate program
+	// 		System.out.println("no data dir provided..");
+	// 		System.exit(1);
+	// 	}
+	// 	app.run(args);
+	// 	//SpringApplication.run(Day13DemoApplication.class, args);
+	// }
 
 }	

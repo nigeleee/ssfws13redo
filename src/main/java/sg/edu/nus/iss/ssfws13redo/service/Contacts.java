@@ -36,48 +36,45 @@ public class Contacts {
         model.addAttribute("contact", new Contact(contact.getId(), contact.getName(), contact.getEmail(), contact.getPhoneNumber(), contact.getDateOfBirth()));
         
         pw.close();
-    }  
-//method for return a set containing names of files excluding directories
-//:: is method referencing, using method of file class. eg. getName is an instance method
-public Set<String> listFiles(String dataDir) {
-    return Stream.of(new File(dataDir)).filter(File :: isFile).map(File :: getName).collect(Collectors.toSet());
-    }    
-
-public void displayContactId(Model model, String dataDir) {
-//calls listFiles method above, to obtain a set of file names stored in dataFiles    
-    Set<String> dataFiles = listFiles(dataDir);    
-    Set<String> modifiedFiles = new HashSet<>();
-//rename files without .txt
-    for(String file : dataFiles) {
-        String formattedFile = file.replace(".txt", "");
-        modifiedFiles.add(formattedFile);
-
+    } 
+    
+    //method for return a set containing names of files excluding directories
+    //:: is method referencing, using method of file class. eg. getName is an instance method
+    private Set<String> listFiles(String dataDir) {
+       return Stream.of(new File(dataDir).listFiles()).filter(File :: isFile).map(File :: getName).collect(Collectors.toSet());
     }
-    model.addAttribute("contactFiles", modifiedFiles.toArray(new String[dataFiles.size()]));
 
-}    
-
-public Contact getContactById(String contactId, String dataDir) {
-    Contact ctc = new Contact();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        java.nio.file.Path filePath = new File(dataDir + "/" + contactId+".txt").toPath();
-        Charset charset = Charset.forName("UTF-8");
-        List<String> stringList = new ArrayList<>();
-        try {
-        stringList = Files.readAllLines(filePath, charset);
-        ctc.setId(contactId);
-        ctc.setName(stringList.get(0));
-        ctc.setEmail(stringList.get(1));
-        ctc.setPhoneNumber(stringList.get(2));
-        LocalDate dob = LocalDate.parse(stringList.get(3), formatter);
-        ctc.setDateOfBirth(dob);
-    } catch (IOException e) {
-        e.printStackTrace();
-        return null; 
+    public void displayContactId(Model model, String dataDir) {
+        //calls listFiles method above, to obtain a set of file names stored in dataFiles      
+            Set<String> dataFiles = listFiles(dataDir);
+            Set<String> modifiedFiles = new HashSet<String>();
+            for(String file : dataFiles){
+         //rename files without .txt
+                String formattedFiles = file.replace(".txt", "");
+                modifiedFiles.add(formattedFiles);
+            }
+            model.addAttribute("contacts", modifiedFiles.toArray(new String[dataFiles.size()]));
+        }
+    public Contact getContactById(String contactId, String dataDir) {
+        Contact ctc = new Contact();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+            java.nio.file.Path filePath = new File(dataDir + "/" + contactId+".txt").toPath();
+            Charset charset = Charset.forName("UTF-8");
+            List<String> stringList = new ArrayList<String>();
+            try {
+            stringList = Files.readAllLines(filePath, charset);
+            ctc.setId(contactId);
+            ctc.setName(stringList.get(0));
+            ctc.setEmail(stringList.get(1));
+            ctc.setPhoneNumber(stringList.get(2));
+            LocalDate dob = LocalDate.parse(stringList.get(3), formatter);
+            ctc.setDateOfBirth(dob);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; 
+        }
+            return ctc;
     }
-        return ctc;
+   
 }
-
-}
-

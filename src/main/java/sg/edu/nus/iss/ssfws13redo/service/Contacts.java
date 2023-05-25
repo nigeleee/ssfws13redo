@@ -63,7 +63,7 @@ public Contact getContactById(String contactId, String dataDir) {
 
         java.nio.file.Path filePath = new File(dataDir + "/" + contactId+".txt").toPath();
         Charset charset = Charset.forName("UTF-8");
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         try {
         stringList = Files.readAllLines(filePath, charset);
         ctc.setId(contactId);

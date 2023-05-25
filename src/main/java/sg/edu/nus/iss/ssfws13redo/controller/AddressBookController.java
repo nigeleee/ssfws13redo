@@ -73,7 +73,7 @@ public String displayContactId(Model model) {
             return "error";
         }
         model.addAttribute("contact", contact);
-        return "showContact";
+        return "contact";
     }
 
 }
